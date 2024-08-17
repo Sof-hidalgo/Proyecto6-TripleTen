@@ -1,2 +1,2 @@
 # Proyecto6-TripleTen
-Creando una aplicación web para visualizaciones de un análisis sencillo acerca de un dataset de vehículos.
+Creating a web application to visualize a simple analysis of a vehicle dataset.
