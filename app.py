@@ -12,17 +12,19 @@ car_data = clean_data(car_data)
 # App title
 st.title('Vehicles Analysis')
 
-
-
-
 # price distribution histogram
 st.header('Price Distribution')
 st.write('This histogram shows the price distribution of vehicles in USD. It allows visualizing the frequency of vehicles in different price ranges, identifying the most common price ranges and the general dispersion of prices in the dataset.')
-fig = px.histogram(car_data,
-                   x='price', 
-                   color_discrete_sequence=['#FF6B6B'],
-                   labels={'price': 'USD'})
-st.plotly_chart(fig)
+
+
+hist_botton = st.button('Build histogram')
+
+if hist_botton:
+    fig = px.histogram(car_data,
+        x='price', 
+        color_discrete_sequence=['#FF6B6B'],
+        labels={'price': 'USD'})
+    st.plotly_chart(fig)
 
 
 
@@ -54,12 +56,11 @@ st.plotly_chart(fig)
 
 # Relation between Mileage and Vehicles Price
 st.header('Relation between Mileage and Vehicles Price')
+st.write('This scatter plot relates mileage to vehicle price. It helps to visualize whether there is a correlation between these two variables, showing how price tends to vary with respect to mileage.')
 
 scatter_button = st.button('Build Scatter Plot')
 if scatter_button:
-
-    # scatter plot
-    st.write('This scatter plot relates mileage to vehicle price. It helps to visualize whether there is a correlation between these two variables, showing how price tends to vary with respect to mileage.')
+   
     fig = px.scatter(car_data, 
                     x='odometer', 
                     y='price',
@@ -101,28 +102,25 @@ st.plotly_chart(fig)
 # Compare Price Distribution between Manufacturers
 st.header("Compare Price Distribution between Manufacturers")
 
-hist_botton = st.button('Build histogram')
-if hist_botton:
+manufacturers = get_manufacturers(car_data)
 
-    manufacturers = get_manufacturers(car_data)
+# Creating a sidebar for manufacturer selection
+manufacturer_1 = st.sidebar.selectbox("Select manufacturer 1", manufacturers)
+manufacturer_2 = st.sidebar.selectbox("Select manufacturer 2", manufacturers)
 
-    # Creating a sidebar for manufacturer selection
-    manufacturer_1 = st.sidebar.selectbox("Select manufacturer 1", manufacturers)
-    manufacturer_2 = st.sidebar.selectbox("Select manufacturer 2", manufacturers)
+# Checkbox to normalize the histogram
+normalize = st.sidebar.checkbox("Normalize histogram", value=True)
 
-    # Checkbox to normalize the histogram
-    normalize = st.sidebar.checkbox("Normalize histogram", value=True)
+# filtering the data according to user selection
+filtered_data = filter_data_by_manufacturer(car_data, manufacturer_1, manufacturer_2)
 
-    # filtering the data according to user selection
-    filtered_data = filter_data_by_manufacturer(car_data, manufacturer_1, manufacturer_2)
-
-    # histogram with custom colors
-    fig = px.histogram(filtered_data, 
+# histogram with custom colors
+fig = px.histogram(filtered_data, 
                     x='price', 
                     color='manufacturer', 
                     barmode='overlay', 
                     histnorm='percent' if normalize else None,
                     title=f'Price Distribution: {manufacturer_1} vs {manufacturer_2}',
                     labels={'price': 'Price', 'manufacturer': 'Manufacturer'},
-                    color_discrete_sequence=['#f9b697', '#82c20a', '#12c0fd'])  # Rojo, Verde azulado, Azul claro
-    st.plotly_chart(fig)
+                    color_discrete_sequence=['#f9b697', '#82c20a', '#12c0fd'])
+st.plotly_chart(fig)
