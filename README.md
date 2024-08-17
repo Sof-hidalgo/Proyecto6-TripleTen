@@ -14,11 +14,4 @@ Aplicación web diseñada para analizar un conjunto de datos de vehículos usado
 
 **Tecnologías:**
 
-* [Lista de tecnologías utilizadas: Python, Pandas, Streamlit, Plotly, etc.]
-
-**Instrucciones de uso:**
-
-1. Clonar el repositorio.
-2. Crear un entorno virtual y activarlo.
-3. Instalar las dependencias.
-4. Ejecutar la aplicación.
+* Lista de tecnologías utilizadas: Python, Pandas, Streamlit, Plotly
