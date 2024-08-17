@@ -1,5 +1,3 @@
-# analysis.py
-
 import pandas as pd
 
 def load_data(csv_path):

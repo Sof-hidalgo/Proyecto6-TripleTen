@@ -1,5 +1,3 @@
-# app.py
-
 import streamlit as st
 import plotly.express as px
 from analysis import load_data, clean_data, get_manufacturers, filter_data_by_manufacturer
@@ -98,25 +96,28 @@ st.plotly_chart(fig)
 # Compare Price Distribution between Manufacturers
 st.header("Compare Price Distribution between Manufacturers")
 
-manufacturers = get_manufacturers(car_data)
+hist_botton = st.button('Build histogram')
+if hist_botton:
 
-# Creating a sidebar for manufacturer selection
-manufacturer_1 = st.sidebar.selectbox("Select manufacturer 1", manufacturers)
-manufacturer_2 = st.sidebar.selectbox("Select manufacturer 2", manufacturers)
+    manufacturers = get_manufacturers(car_data)
 
-# Checkbox to normalize the histogram
-normalize = st.sidebar.checkbox("Normalize histogram", value=True)
+    # Creating a sidebar for manufacturer selection
+    manufacturer_1 = st.sidebar.selectbox("Select manufacturer 1", manufacturers)
+    manufacturer_2 = st.sidebar.selectbox("Select manufacturer 2", manufacturers)
 
-# filtering the data according to user selection
-filtered_data = filter_data_by_manufacturer(car_data, manufacturer_1, manufacturer_2)
+    # Checkbox to normalize the histogram
+    normalize = st.sidebar.checkbox("Normalize histogram", value=True)
 
-# histogram with custom colors
-fig = px.histogram(filtered_data, 
-                   x='price', 
-                   color='manufacturer', 
-                   barmode='overlay', 
-                   histnorm='percent' if normalize else None,
-                   title=f'Price Distribution: {manufacturer_1} vs {manufacturer_2}',
-                   labels={'price': 'Price', 'manufacturer': 'Manufacturer'},
-                   color_discrete_sequence=['#f9b697', '#82c20a', '#12c0fd'])  # Rojo, Verde azulado, Azul claro
-st.plotly_chart(fig)
+    # filtering the data according to user selection
+    filtered_data = filter_data_by_manufacturer(car_data, manufacturer_1, manufacturer_2)
+
+    # histogram with custom colors
+    fig = px.histogram(filtered_data, 
+                    x='price', 
+                    color='manufacturer', 
+                    barmode='overlay', 
+                    histnorm='percent' if normalize else None,
+                    title=f'Price Distribution: {manufacturer_1} vs {manufacturer_2}',
+                    labels={'price': 'Price', 'manufacturer': 'Manufacturer'},
+                    color_discrete_sequence=['#f9b697', '#82c20a', '#12c0fd'])  # Rojo, Verde azulado, Azul claro
+    st.plotly_chart(fig)
