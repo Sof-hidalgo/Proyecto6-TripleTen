@@ -15,3 +15,5 @@ Aplicación web diseñada para analizar un conjunto de datos de vehículos usado
 **Tecnologías:**
 
 * Lista de tecnologías utilizadas: Python, Pandas, Streamlit, Plotly
+
+**Link para acceder a la aplicación**: https://proyecto6-tripleten-2.onrender.com
