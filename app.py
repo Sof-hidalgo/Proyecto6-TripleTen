@@ -52,16 +52,21 @@ st.plotly_chart(fig)
 
 
 
-# scatter plot
+# Relation between Mileage and Vehicles Price
 st.header('Relation between Mileage and Vehicles Price')
-st.write('This scatter plot relates mileage to vehicle price. It helps to visualize whether there is a correlation between these two variables, showing how price tends to vary with respect to mileage.')
-fig = px.scatter(car_data, 
-                 x='odometer', 
-                 y='price',
-                 color_discrete_sequence=['#FFA07A'],
-                 labels= {'odometer': 'Mileage (Miles)', 'price': 'USD'}
-                 ) 
-st.plotly_chart(fig)
+
+scatter_button = st.button('Build Scatter Plot')
+if scatter_button:
+
+    # scatter plot
+    st.write('This scatter plot relates mileage to vehicle price. It helps to visualize whether there is a correlation between these two variables, showing how price tends to vary with respect to mileage.')
+    fig = px.scatter(car_data, 
+                    x='odometer', 
+                    y='price',
+                    color_discrete_sequence=['#FFA07A'],
+                    labels= {'odometer': 'Mileage (Miles)', 'price': 'USD'}
+                    ) 
+    st.plotly_chart(fig)
 
 
 
